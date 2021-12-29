@@ -49,21 +49,16 @@ const Login = () =>
 	return (
 	  <Fragment>
 		  <div className="container">
-				<div className="row">
-					<div className="col-sm-3 returnHome">
-						<a to="/" className="link"><i className="fas fa-backspace"></i> Return Home</a>
-					</div>
-				</div>
 
 				<div className="row">
 					<div className="col-10 offset-1 text-center loginText">
-						<h3>Log In Below</h3>
-						<p>Don't have an account? <a to="/register" className="link">Register</a></p>
+						
+						<p><a to="/register" className="link art-degrade titre">Register</a></p>
 					</div>
 				</div>
 
 				<div className="row">
-					<div className="col-10 offset-1 text-center">
+					<div className="divLogin">
 						<form  onSubmit={() => onSubmit()}>
 							{/* Email */}
 							<div className="col-8 offset-2">
@@ -97,10 +92,10 @@ const Login = () =>
 
 							{/* Submit button */}
 							<div className="col-8 offset-2">
-								<button className="btn loginbtn" type="submit">
+								<button className="button buttonLogin" type="submit">
 									Log In
 			 	  				</button>
-								   <button className="btn" onClick={()=> ComponentDidMount()} >
+								   <button className="button " onClick={()=> ComponentDidMount()} >
 									Fetch
 			 	  				</button>
 							</div>

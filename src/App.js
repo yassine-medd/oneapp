@@ -5,7 +5,10 @@ import { Fragment } from 'react';
 function App() {
   return (
     <Fragment>
-      <Login/>
+      <div className='fondEcran'>
+       <Login />
+      </div>
+      
     </Fragment>
        
     
