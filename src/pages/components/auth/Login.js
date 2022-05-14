@@ -1,9 +1,21 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment , useState} from "react";
 import './Login.css';
+const data = [{"ID Client":220,"ID Compte":504,"Nom":"Meryame","Prenom":"Meryame",
+"Email":"meryame@outlook.fr","Date_Naissance":"1992-04-09T00:00:00","Pays":"Maroc","Ville":"Oujda","Code_Postal":"60000"}];
 
-const Login = () => 
+const Login = ({etat}) => 
 {
+    
+	const [values, SetValues] = useState({password : "", user : ""  });
 
+	const handleChange = (event) => {
+		
+
+		if(event.target.id == "user")
+		  SetValues({password : values.password, user : event.target.value })
+		else 
+			SetValues({password : event.target.value, user : values.user })
+	  }
 	const componentDidMount =()=> {
 		// If logged in and user navigates to Login page, should redirect them to dashboard
 		// if (this.props.auth.isAuthenticated) {
@@ -37,19 +49,28 @@ const Login = () =>
 	// https://jsonplaceholder.typicode.com/users
 	const ComponentDidMount = () => {
         fetch(
-		"https://webapplicationapi20220513000535.azurewebsites.net/api/Cats")
+		"https://webapplicationapi20220513000535.azurewebsites.net/api/Compte",
+		{
+			method: 'Get',
+			headers: {
+			  'user': values.user ,
+			  'password': values.password
+			}
 					.then((res) => res.json())
 					.then((json) => {
-						
-						console.log(json[0]);
+						 data = json ;
+						console.log(json);
 					})
-
+				}
 					
-    }
+		)}
 	return (
 	  <Fragment>
 		  <div className="container">
-
+		 
+								   <button className="button " onClick={etat} >
+									Accueil
+			 	  				</button>
 				<div className="row">
 					<div className="col-10 offset-1 text-center loginText">
 						
@@ -62,16 +83,16 @@ const Login = () =>
 						<form  onSubmit={() => onSubmit()}>
 							{/* Email */}
 							<div className="col-8 offset-2">
-								<label htmlFor="email">Email:</label>
+								<label htmlFor="User">User:</label>
 								<span className="text-danger"></span>
 								<input
-									type="email"
-									onChange={() => onChange()}
+									type="text"
+									onChange={(e) => handleChange(e)}
 									
-									
-									id="email"
+									value = {values.user}
+									id="user"
 									className="form-control"
-									placeholder="Enter your email..."
+									placeholder="Enter your username..."
 								/>
 							</div>
 
@@ -81,9 +102,9 @@ const Login = () =>
 								<span className="text-danger"></span>
 								<input
 									type="password"
-									onChange={() => onChange()}
+									onChange={(e) => handleChange(e)}
 								
-									
+									value = {values.password}
 									id="password"
 									className="form-control"
 									placeholder="Enter your password..."
