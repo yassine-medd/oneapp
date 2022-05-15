@@ -48,22 +48,20 @@ const Login = ({etat}) =>
     // http://localhost:5033/WeatherForecast
 	// https://jsonplaceholder.typicode.com/users
 	const ComponentDidMount = () => {
-        fetch(
-		"https://webapplicationapi20220513000535.azurewebsites.net/api/Compte",
-		{
-			method: 'Get',
+		const requestOptions  ={
+			method: 'GET',
 			headers: {
-			  'user': values.user ,
-			  'password': values.password
-			}
-					.then((res) => res.json())
+			  "user": values.user ,
+			  "password": values.password,
+			}};
+
+        fetch("https://webapplicationapi20220513000535.azurewebsites.net/api/compte",requestOptions   )
+			.then((res) => res.json())
 					.then((json) => {
 						 data = json ;
 						console.log(json);
-					})
-				}
-					
-		)}
+					}).catch(console.log("Probléme de connexion au lien "))
+				};
 	return (
 	  <Fragment>
 		  <div className="container">
