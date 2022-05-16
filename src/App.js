@@ -9,10 +9,10 @@ function App() {
   return (
     <Fragment>
       {
-        etatNav.Accuiel ? <Accuiel   etat={ ()=> SetNav({Accuiel:false, Login : true })}/> : null
+        etatNav.Accuiel ? <Accuiel   etat={ SetNav}/> : null
       }
       { etatNav.Login ?
-         <Login etat={ ()=> SetNav({Accuiel:true, Login : false })} /> : null
+         <Login etat={  SetNav} /> : null
       }
       
 

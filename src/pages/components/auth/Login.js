@@ -16,28 +16,11 @@ const Login = ({etat}) =>
 		else 
 			SetValues({password : event.target.value, user : values.user })
 	  }
-	const componentDidMount =()=> {
-		// If logged in and user navigates to Login page, should redirect them to dashboard
-		// if (this.props.auth.isAuthenticated) {
-		// 	this.props.history.push("/dashboard");
-		// }
-	}
 
-	const componentWillReceiveProps = (nextProps) =>{
-		// if (nextProps.auth.isAuthenticated) {
-		// 	// Push user to dashboard when they login
-		// 	this.props.history.push("/dashboard");
-		// }
-		// if (nextProps.errors) {
-		// 	this.setState({
-		// 		errors: nextProps.errors
-		// 	});
-		// }
-	}
 
-	const onChange = e => {
-		// this.setState({ [e.target.id]: e.target.value });
-	};
+
+
+	
 	const onSubmit = e => {
 		// e.preventDefault();
 		// const userData = {
@@ -53,22 +36,54 @@ const Login = ({etat}) =>
 			headers: {
 			  "user": values.user ,
 			  "password": values.password,
+			  "Content-Type": "application/json",
+			  "Access-Control-Allow-Origin": "*",
+			  "Access-Control-Allow-Headers": "X-Requested-With"
 			}};
 
-        fetch("https://webapplicationapi20220513000535.azurewebsites.net/api/compte",requestOptions   )
-			.then((res) => res.json())
-					.then((json) => {
-						 data = json ;
-						console.log(json);
-					}).catch(console.log("Probléme de connexion au lien "))
-				};
+			fetch("https://webapplicationapi20220513000535.azurewebsites.net/api/compte/",requestOptions )
+			.then((res) => {res.json();
+				if (res.redirected) {
+					alert("Erreur : redirect api " )
+				}
+			})
+			.then((json) => {
+					data = json ;
+				console.log(json);
+                alert("Erreur : yes api" )
+				
+			})
+			.catch(error => alert("Erreur : catch " + error));
+
+		};
+
+				const test1 = () => {
+					
+					fetch("https://jsonplaceholder.typicode.com/users")
+					.then((res) => res.string())
+					.then((text) => {
+						
+						console.log(text);
+					})
+					.catch(error => alert("Erreur : " + error));
+
+					};
+				
+					const test2 = () => {
+	
+						fetch("https://webapplicationapi20220513000535.azurewebsites.net/api/cats/")
+						.then(response => response.json())
+						.then(response => alert(JSON.stringify(response)))
+						.catch(error => alert("Erreur : " + error));
+						};
+
 	return (
 	  <Fragment>
 		  <div className="container">
 		 
-								   <button className="button " onClick={etat} >
+								   {/* <button className="button " onClick={etat} >
 									Accueil
-			 	  				</button>
+			 	  				</button> */}
 				<div className="row">
 					<div className="col-10 offset-1 text-center loginText">
 						
@@ -114,8 +129,14 @@ const Login = ({etat}) =>
 								<button className="button buttonLogin" type="submit">
 									Log In
 			 	  				</button>
-								   <button className="button " onClick={()=> ComponentDidMount()} >
+								<button className="button " onClick={()=> ComponentDidMount()} >
 									Fetch
+			 	  				</button>
+								   <button className="button " onClick={()=> test1()} >
+									Compte 2
+			 	  				</button>
+								   <button className="button " onClick={()=> test2()} >
+									Cats
 			 	  				</button>
 							</div>
 						</form>
